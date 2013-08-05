@@ -1,17 +1,24 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package nave3000;
 
-/**
- *
- * @author writkas
- */
-public class Enemy {
-    private int posX, posY;
-    private boolean live;
+public class Enemy extends Entity {
+   
+    private Point up, right, left;
     
+    Enemy (Point origin) {
+        // Asignar Origen
+        super (origin);
+        
+        // Asignar vertices
+        this.up.x = super.getX();
+        this.up.y = super.getY() - 20;
+        
+        this.right.x = super.getX() + 20;
+        this.right.y = super.getY() + 20;
+        
+        this.left.x = super.getX() - 20;
+        this.left.y = super.getY() + 20; 
+    }
     
     public void shoot () {
         
@@ -21,7 +28,7 @@ public class Enemy {
         
     }
     
-    public void draw (int posX, int posY) {
-    
+    public void draw () {
+        // Temp: Sólo dibuja
     }
 }

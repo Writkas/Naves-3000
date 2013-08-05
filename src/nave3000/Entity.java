@@ -5,6 +5,11 @@ public abstract class Entity
 {
     private Point originPoint;
     
+    Entity (Point origin) {
+        this.originPoint.x = origin.x;
+        this.originPoint.y = origin.y;
+    }
+    
     protected void setX (int x) {
         this.originPoint.x = x;
     }
