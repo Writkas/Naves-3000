@@ -9,5 +9,5 @@ package nave3000;
  * @author writkas
  */
 public class Score {
-    
+ private int point;
 }

@@ -6,8 +6,8 @@ package nave3000;
 
 /**
  *
- * @author writkas
+ * @author Debora-Pato
  */
-public class Missile {
-      
+public interface IAnimated {
+    
 }
