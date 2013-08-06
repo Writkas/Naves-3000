@@ -25,39 +25,31 @@ public class Game {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
     private String WINDOW_TITLE = "Nave3000";
+    private final int TOTAL_ENEMYS = 6;
      
     /*
      *  Atributes
      */
-    private Enemy enemy; 
+    
+    private Enemy [] enemy = new Enemy [TOTAL_ENEMYS]; 
     private boolean isRuning = true;
     private int fps;
-    private Point enemyOrigin;
+    private Point originAux;
     
     Game () {
         
         this.configDisplay();
         this.configOpenGL();
-        enemyOrigin = new Point();
-        enemyOrigin.x = 100;
-        enemyOrigin.y = 100;
-        enemy = new Enemy(enemyOrigin);
+        
+        
         // Game Loop 
         
         while (isRuning) {
             this.render ();
-            enemyOrigin = enemy.getLeft();
-            
-       glBegin(GL_TRIANGLES);
-          glVertex2i(enemyOrigin.x,enemyOrigin.y);
-          enemyOrigin = enemy.getRight();
-          glVertex2i(enemyOrigin.x,enemyOrigin.y);
-          enemyOrigin = enemy.getDown();
-          glVertex2i(enemyOrigin.x,enemyOrigin.y);
-       glEnd();
+            this.initEntities();
             
             Display.update();
-            Display.sync(60);
+            Display.sync(50);
             
             if (Display.isCloseRequested()) {
                 isRuning = false;
@@ -74,7 +66,7 @@ public class Game {
     private void configOpenGL () {
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glOrtho(0, WIDTH, HEIGHT, 0, 1, -1);
+        glOrtho(0, WIDTH, HEIGHT, 0, -1, 1);
         glMatrixMode(GL_MODELVIEW);
     }
     
@@ -89,7 +81,23 @@ public class Game {
     }
     
     private void initEntities () {
-        // Temp: Acá se inicializan las unidades GoodShip y Enemy, etc.
+        Point vertexAux;
+        originAux = new Point(80, 70);
+        
+        for (int i = 0; i < enemy.length; i++) {
+            this.enemy[i] = new Enemy (originAux);
+             
+            glBegin(GL_TRIANGLES);
+                vertexAux = enemy[i].getLeft();
+                glVertex2i(vertexAux.x, vertexAux.y);
+                vertexAux = enemy[i].getRight();
+                glVertex2i(vertexAux.x, vertexAux.y);
+                vertexAux = enemy[i].getDown();
+                glVertex2i(vertexAux.x, vertexAux.y);
+            glEnd();
+            
+            this.originAux.x += 70;
+        }
     }
     
     /**
