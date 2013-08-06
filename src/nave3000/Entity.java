@@ -6,6 +6,7 @@ public abstract class Entity
     private Point originPoint;
     
     Entity (Point origin) {
+        originPoint= new Point();
         this.originPoint.x = origin.x;
         this.originPoint.y = origin.y;
     }

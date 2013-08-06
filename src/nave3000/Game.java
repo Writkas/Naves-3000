@@ -25,24 +25,36 @@ public class Game {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
     private String WINDOW_TITLE = "Nave3000";
-
+     
     /*
      *  Atributes
      */
-    
+    private Enemy enemy; 
     private boolean isRuning = true;
     private int fps;
+    private Point enemyOrigin;
     
     Game () {
         
         this.configDisplay();
         this.configOpenGL();
-        
+        enemyOrigin = new Point();
+        enemyOrigin.x = 100;
+        enemyOrigin.y = 100;
+        enemy = new Enemy(enemyOrigin);
         // Game Loop 
         
         while (isRuning) {
             this.render ();
+            enemyOrigin = enemy.getLeft();
             
+       glBegin(GL_TRIANGLES);
+          glVertex2i(enemyOrigin.x,enemyOrigin.y);
+          enemyOrigin = enemy.getRight();
+          glVertex2i(enemyOrigin.x,enemyOrigin.y);
+          enemyOrigin = enemy.getDown();
+          glVertex2i(enemyOrigin.x,enemyOrigin.y);
+       glEnd();
             
             Display.update();
             Display.sync(60);
