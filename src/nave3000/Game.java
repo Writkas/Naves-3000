@@ -33,7 +33,8 @@ public class Game {
     private boolean isRuning = true;
     private int fps;
     private Point enemyOrigin;
-    
+    private World world;
+    private Point worldOrigin;
     Game () {
         
         this.configDisplay();
@@ -42,6 +43,10 @@ public class Game {
         enemyOrigin.x = 100;
         enemyOrigin.y = 100;
         enemy = new Enemy(enemyOrigin);
+        worldOrigin = new Point();
+        worldOrigin.x = 400;
+        worldOrigin.y = 300;
+        world = new World (worldOrigin);
         // Game Loop 
         
         while (isRuning) {
@@ -54,6 +59,22 @@ public class Game {
           glVertex2i(enemyOrigin.x,enemyOrigin.y);
           enemyOrigin = enemy.getDown();
           glVertex2i(enemyOrigin.x,enemyOrigin.y);
+       glEnd();
+          
+           worldOrigin = world.getupperLeft();
+       glBegin(GL_LINES);
+          glVertex2i(worldOrigin.x,worldOrigin.y); // x, y
+          glVertex2i(worldOrigin.x,worldOrigin.y);
+           worldOrigin = world.getupperRight();   
+          glVertex2i(worldOrigin.x,worldOrigin.y);
+          glVertex2i(worldOrigin.x,worldOrigin.y);
+           worldOrigin = world.getbottomRight();   
+          glVertex2i(worldOrigin.x,worldOrigin.y);
+          glVertex2i(worldOrigin.x,worldOrigin.y);
+           worldOrigin = world.getbottomLeft();   
+          glVertex2i(worldOrigin.x,worldOrigin.y);
+          glVertex2i(worldOrigin.x,worldOrigin.y);
+         
        glEnd();
             
             Display.update();
