@@ -18,11 +18,6 @@ public class World extends Entity {
   private  Point upperLeft,bottomLeft,upperRight,bottomRight;
    World (Point origin){
         super (origin);
-       
-   } 
-    public void draw (){
-       
-    // Asignar vertices
         this.upperLeft = new Point();
         this.upperLeft.x = super.getX()-50;
         this.upperLeft.y = super.getY()-50; 
@@ -35,8 +30,7 @@ public class World extends Entity {
         this.bottomLeft = new Point();
         this.bottomLeft.x = super.getX()-50;
         this.bottomLeft.y = super.getY()+50; 
-       
-   }
+   } 
    public Point getupperLeft(){
      return this.upperLeft;
     }

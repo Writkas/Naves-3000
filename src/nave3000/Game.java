@@ -60,7 +60,7 @@ public class Game {
           enemyOrigin = enemy.getDown();
           glVertex2i(enemyOrigin.x,enemyOrigin.y);
        glEnd();
-          
+       
            worldOrigin = world.getupperLeft();
        glBegin(GL_LINES);
           glVertex2i(worldOrigin.x,worldOrigin.y); // x, y
