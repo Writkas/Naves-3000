@@ -42,7 +42,7 @@ public class Game {
     
 
     Game () {
-        
+
         this.configDisplay();
         this.configOpenGL();
 
@@ -51,6 +51,7 @@ public class Game {
         while (isRuning) {
             this.render ();
             this.initEntities();
+            
             Display.update();
             Display.sync(60);
             
@@ -84,19 +85,21 @@ public class Game {
     }
     
     private void initEntities () {
-        goodshipOrigin = new Point();
-        goodshipOrigin.x = 400;
-        goodshipOrigin.y = 320;
+        goodshipOrigin = new Point(400, 320);
+        goodship = new GoodShip (goodshipOrigin);
+
         //GoodShip
         
         glBegin(GL_TRIANGLES);
                 goodshipOrigin = goodship.getLeft();
                 glVertex2i(goodshipOrigin.x, goodshipOrigin.y);
+                System.out.println ("x: " + goodshipOrigin.x + " , y: " + goodshipOrigin.y);
                 goodshipOrigin = goodship.getRight();
                 glVertex2i(goodshipOrigin.x, goodshipOrigin.y);
                 goodshipOrigin = goodship.getDown();
                 glVertex2i(goodshipOrigin.x, goodshipOrigin.y);
-            glEnd();
+        glEnd();
+        
         // Word
         worldOrigin = new Point();
         worldOrigin.x = 400;
