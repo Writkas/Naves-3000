@@ -1,8 +1,7 @@
 
 # Netbeans
 build/
-nbproject/private/*.properties
-nbproject/private/private.xml
+nbproject/private/
 
 # Linux
 .directory
