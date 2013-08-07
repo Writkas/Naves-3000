@@ -10,7 +10,6 @@ public class World extends Entity {
   
    World (Point origin){
         super (origin);
-
         this.upperLeft = new Point();
         this.upperLeft.x = super.getX()-350;
         this.upperLeft.y = super.getY()-250; 
@@ -23,7 +22,13 @@ public class World extends Entity {
         this.bottomLeft = new Point();
         this.bottomLeft.x = super.getX()-350;
         this.bottomLeft.y = super.getY()+250; 
+        this.bottomRight.x = super.getX()+350;
+        this.bottomRight.y = super.getY()+250;
+        this.bottomLeft = new Point();
+        this.bottomLeft.x = super.getX()-350;
+        this.bottomLeft.y = super.getY()+250; 
    }
+   
    public Point getupperLeft(){
      return this.upperLeft;
    }

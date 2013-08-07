@@ -37,12 +37,15 @@ public class Game {
     private Point originAux;
     private World world;
     private Point worldOrigin;
+    private GoodShip goodship;
+    private Point goodshipOrigin;
+    
 
     Game () {
         
         this.configDisplay();
         this.configOpenGL();
-         
+
         // Game Loop 
         
         while (isRuning) {
@@ -81,12 +84,26 @@ public class Game {
     }
     
     private void initEntities () {
+        goodshipOrigin = new Point();
+        goodshipOrigin.x = 400;
+        goodshipOrigin.y = 320;
+        //GoodShip
+        
+        glBegin(GL_TRIANGLES);
+                goodshipOrigin = goodship.getLeft();
+                glVertex2i(goodshipOrigin.x, goodshipOrigin.y);
+                goodshipOrigin = goodship.getRight();
+                glVertex2i(goodshipOrigin.x, goodshipOrigin.y);
+                goodshipOrigin = goodship.getDown();
+                glVertex2i(goodshipOrigin.x, goodshipOrigin.y);
+            glEnd();
+        // Word
         worldOrigin = new Point();
         worldOrigin.x = 400;
         worldOrigin.y = 320;
+
         world = new World (worldOrigin);
-        
-        // Word
+        originAux = new Point(210, 100);
         glBegin(GL_LINES);
             worldOrigin = world.getupperLeft();
             glVertex2i(worldOrigin.x, worldOrigin.y);         
@@ -107,7 +124,9 @@ public class Game {
         glEnd();
 
         Point vertexAux;
+
         originAux = new Point(210, 100);
+
         
         for (int i = 0; i < enemy.length; i++) {
            
