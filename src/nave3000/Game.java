@@ -35,21 +35,24 @@ public class Game {
     private boolean isRuning = true;
     private int fps;
     private Point originAux;
-    
+    private World world;
+    private Point worldOrigin;
+
     Game () {
         
         this.configDisplay();
         this.configOpenGL();
         
+
         
         // Game Loop 
         
         while (isRuning) {
             this.render ();
             this.initEntities();
-            
+  
             Display.update();
-            Display.sync(50);
+            Display.sync(60);
             
             if (Display.isCloseRequested()) {
                 isRuning = false;
@@ -81,12 +84,40 @@ public class Game {
     }
     
     private void initEntities () {
+        worldOrigin = new Point();
+        worldOrigin.x = 400;
+        worldOrigin.y = 300;
+        world = new World (worldOrigin);
+        
+        // Word
+        glBegin(GL_LINES);
+            worldOrigin = world.getupperLeft();
+            glVertex2i(worldOrigin.x, worldOrigin.y);         
+            worldOrigin = world.getupperRight(); 
+            glVertex2i(worldOrigin.x, worldOrigin.y);
+           
+            glVertex2i(worldOrigin.x, worldOrigin.y);
+            worldOrigin = world.getbottomRight();   
+            glVertex2i(worldOrigin.x, worldOrigin.y);
+            
+            glVertex2i(worldOrigin.x, worldOrigin.y);
+            worldOrigin = world.getbottomLeft(); 
+            glVertex2i(worldOrigin.x, worldOrigin.y);
+              
+            glVertex2i(worldOrigin.x, worldOrigin.y);
+            worldOrigin = world.getupperLeft();
+            glVertex2i(worldOrigin.x, worldOrigin.y);
+        glEnd();
+
         Point vertexAux;
         originAux = new Point(80, 70);
         
         for (int i = 0; i < enemy.length; i++) {
+           
+            // Enemys
+            
             this.enemy[i] = new Enemy (originAux);
-             
+            
             glBegin(GL_TRIANGLES);
                 vertexAux = enemy[i].getLeft();
                 glVertex2i(vertexAux.x, vertexAux.y);
