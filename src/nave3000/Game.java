@@ -2,7 +2,6 @@
 package nave3000;
 
 // Core Java Imports
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -96,16 +95,22 @@ public final class Game {
         movementEndAux = new Point (400, 100);
         
         // Punto inicial de los enemigos
-        originAux.x = 100;
+        originAux.x = 130;
         originAux.y = 100;
         
         for (int i = 0; i < Game.TOTAL_ENEMYS; i++) {
-            //this.originEnemy[i] = 
-        }
-        
-        for (int i = 0; i < Game.TOTAL_ENEMYS; i++) {
+            this.originEnemy[i] = originAux;
+            this.originAux.x += 75;
             this.enemy[i] = new Enemy (originAux);
         }
+        
+        // Asignando el inicio y fin de los movimientos de los enemigos
+        /*for (int i = 0; i < Game.TOTAL_ENEMYS; i++) {
+            this.enemy[i].setBegin(new Point (30, 100));
+            this.enemy[i].setEnd(new Point (300, 100));
+        }*/
+        this.enemy[0].setBegin(new Point (30, 100));
+        this.enemy[0].setEnd(new Point (200, 100));
     }
     
     public void gameLoop () {
@@ -152,7 +157,7 @@ public final class Game {
 
         // Enemys
         
-        for (int i = 0; i < enemy.length; i++) {
+        for (int i = 0; i < Game.TOTAL_ENEMYS; i++) {
             glBegin(GL_TRIANGLES);
                 vertexAux = enemy[i].getLeft();
                 glVertex2i(vertexAux.x, vertexAux.y);
@@ -162,9 +167,12 @@ public final class Game {
                 glVertex2i(vertexAux.x, vertexAux.y);
             glEnd();
             
-            //this.originAux.x += 70;
+            this.enemy[0].move();
         }
-        
+        // Test..
+        //vertexAux = enemy[0].getLeft();
+        //System.out.println("vertexAux.x: " + vertexAux.x);
+
         if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
             Display.destroy();
             System.exit(0);
@@ -180,11 +188,10 @@ public final class Game {
         }
         
         Display.update();
-        Display.sync(60);
+        Display.sync(10);
             
         if (Display.isCloseRequested()) {
             isRuning = false;
-
         }
     }
    

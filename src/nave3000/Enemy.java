@@ -40,17 +40,16 @@ public class Enemy extends Entity {
         this.begin = new Point (0, 0);
         this.end = new Point (0, 0);
     }
-    
-    public void shoot () {
-        
-    }
-    
+ 
     public void move () {
+        System.out.println("Move!");
+        
         // Right movement
         if (movementState == 1) {
             moveRight ();
             
-            if (super.getX() == this.end.x) {
+            if (super.getX() >= this.end.x) {
+                System.out.println("Hola1!");
                 movementState = 2; // Left
             }
         }
@@ -59,10 +58,13 @@ public class Enemy extends Entity {
         if (movementState == 2) {
             moveLeft ();
             
-            if (super.getX() == this.begin.x) {
+            if (super.getX() <= this.begin.x) {
+                System.out.println("Hola2!");
                 movementState = 1; // Right
             }
         }
+        
+        System.out.println (movementState);
     }
     
     public void setBegin (Point begin) {
@@ -89,9 +91,11 @@ public class Enemy extends Entity {
     
     private void moveLeft () {
         // Move vertex
+        super.setX(super.getX() - MOVEMENT);
         this.left.x = super.getX() - MOVEMENT;
         this.right.x = super.getX() - MOVEMENT;
-        this.down.x = super.getX() - MOVEMENT;    
+        this.down.x = super.getX() - MOVEMENT; 
+        
     }
     
     private void moveRight () {
@@ -99,5 +103,6 @@ public class Enemy extends Entity {
         this.left.x = super.getX() + MOVEMENT;
         this.right.x = super.getX() + MOVEMENT;
         this.down.x = super.getX() + MOVEMENT;
+        super.setX(super.getX() + MOVEMENT);
     }
 }
