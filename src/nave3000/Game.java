@@ -33,14 +33,16 @@ public final class Game {
      */
     
     private Enemy [] enemy = new Enemy [TOTAL_ENEMYS]; 
+    private Point [] originEnemy = new Point [TOTAL_ENEMYS];
     private boolean isRuning = true;
     private int fps;
-    private Point originAux;
     private World world;
     private Point worldOrigin;
     private GoodShip goodship;
     private Point goodshipOrigin;
-    
+    // Varialbe temporal para asignar el origen de una figura
+    private Point originAux;
+    private Point vertexAux; // Variable temporal para asignar vertices
 
     Game () {
         this.configDisplay();
@@ -74,7 +76,27 @@ public final class Game {
     private void initEntities () {
         // Temp: Acá se inicializarán las entidades
         
+        // World
         
+        worldOrigin = new Point(400, 320);
+        world = new World (worldOrigin);
+        originAux = new Point();
+        
+        // Goodship
+       
+        goodshipOrigin = new Point(400, 540);
+        goodship = new GoodShip (goodshipOrigin);
+        
+        // Enemy
+        
+        Point movementBeginAux;
+        movementBeginAux = new Point (100, 100);
+        Point movementEndAux;
+        movementEndAux = new Point (400, 100);
+        
+        for (int i = 0; i < enemy.length; i++) {
+            this.enemy[i] = new Enemy (originAux);
+        }
     }
     
     public void gameLoop () {
@@ -88,10 +110,7 @@ public final class Game {
         // Temp: Acá se dibujaran todo
         
         // GoodShip
-        
-        goodshipOrigin = new Point(400, 540);
-        goodship = new GoodShip (goodshipOrigin);
-        
+ 
         glBegin(GL_TRIANGLES);
             goodshipOrigin = goodship.getLeft();
             glVertex2i(goodshipOrigin.x, goodshipOrigin.y);
@@ -102,13 +121,7 @@ public final class Game {
         glEnd();
         
         // Word
-        
-        worldOrigin = new Point();
-        worldOrigin.x = 400;
-        worldOrigin.y = 320;
 
-        world = new World (worldOrigin);
-        originAux = new Point(210, 100);
         glBegin(GL_LINES);
             worldOrigin = world.getupperLeft();
             glVertex2i(worldOrigin.x, worldOrigin.y);         
@@ -130,18 +143,7 @@ public final class Game {
 
         // Enemys
         
-        Point vertexAux;
-        originAux = new Point(210, 100);
-        Point movementBeginAux;
-        movementBeginAux = new Point (100, 100);
-        Point movementEndAux;
-        movementEndAux = new Point (400, 100);
-
         for (int i = 0; i < enemy.length; i++) {
-            this.enemy[i] = new Enemy (originAux);
-            this.enemy[0].setBegin(movementBeginAux);
-            this.enemy[0].setEnd(movementEndAux);
-            
             glBegin(GL_TRIANGLES);
                 vertexAux = enemy[i].getLeft();
                 glVertex2i(vertexAux.x, vertexAux.y);
@@ -152,7 +154,6 @@ public final class Game {
             glEnd();
             
             this.originAux.x += 70;
-            this.enemy[0].move();
         }
         
         if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
