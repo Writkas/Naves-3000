@@ -26,4 +26,6 @@ public abstract class Entity
     protected int getY () {
         return this.originPoint.y;
     }
+    
+    // Temp: getY debería llamarse getOriginY, para hacer referencia al origen.
 }
