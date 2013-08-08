@@ -4,8 +4,12 @@
  */
 package nave3000;
 
+// Core Java Imports
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+// LWJGL Imports
 import org.lwjgl.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.input.Keyboard;
@@ -16,7 +20,7 @@ import static org.lwjgl.opengl.GL11.*;
  * @author Patricio René Sáez
  * @author Matías Muñoz Espinoza
  */
-public class Game {
+public final class Game {
     
     /*
      *  Constant
@@ -31,7 +35,7 @@ public class Game {
      *  Atributes
      */
     
-    private Enemy [] enemy = new Enemy [6]; 
+    private Enemy [] enemy = new Enemy [TOTAL_ENEMYS]; 
     private boolean isRuning = true;
     private int fps;
     private Point originAux;
@@ -42,24 +46,10 @@ public class Game {
     
 
     Game () {
-
         this.configDisplay();
         this.configOpenGL();
-
-        // Game Loop 
-        
-        while (isRuning) {
-            this.render ();
-            this.initEntities();
-            
-            Display.update();
-            Display.sync(60);
-            
-            if (Display.isCloseRequested()) {
-                isRuning = false;
-            }
-        }
-        
+        this.initEntities();
+        this.gameLoop();
         Display.destroy();
     }
     
@@ -70,13 +60,13 @@ public class Game {
     private void configOpenGL () {
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glOrtho(0, WIDTH, HEIGHT, 0, -1, 1);
+        glOrtho(0, Game.WIDTH, Game.HEIGHT, 0, -1, 1);
         glMatrixMode(GL_MODELVIEW);
     }
     
     private void configDisplay () {
         try {
-            Display.setDisplayMode (new DisplayMode(this.WIDTH, this.HEIGHT));
+            Display.setDisplayMode (new DisplayMode(Game.WIDTH, Game.HEIGHT));
             Display.create ();
             Display.setTitle(this.WINDOW_TITLE);
         } catch (LWJGLException ex) {
@@ -85,15 +75,29 @@ public class Game {
     }
     
     private void initEntities () {
+        // Temp: Acá se inicializarán las entidades
+        
+        
+    }
+    
+    public void gameLoop () {
+        while (isRuning) {
+            this.render();            
+            this.frameRendering();
+        }
+    }
+    
+    public void frameRendering () {
+        // Temp: Acá se dibujaran todo
+        
         goodshipOrigin = new Point(400, 320);
         goodship = new GoodShip (goodshipOrigin);
 
-        //GoodShip
+        // GoodShip
         
         glBegin(GL_TRIANGLES);
                 goodshipOrigin = goodship.getLeft();
                 glVertex2i(goodshipOrigin.x, goodshipOrigin.y);
-                System.out.println ("x: " + goodshipOrigin.x + " , y: " + goodshipOrigin.y);
                 goodshipOrigin = goodship.getRight();
                 glVertex2i(goodshipOrigin.x, goodshipOrigin.y);
                 goodshipOrigin = goodship.getDown();
@@ -101,6 +105,7 @@ public class Game {
         glEnd();
         
         // Word
+        
         worldOrigin = new Point();
         worldOrigin.x = 400;
         worldOrigin.y = 320;
@@ -126,16 +131,19 @@ public class Game {
             glVertex2i(worldOrigin.x, worldOrigin.y);
         glEnd();
 
-        Point vertexAux;
-
-        originAux = new Point(210, 100);
-
+        // Enemys
         
+        Point vertexAux;
+        originAux = new Point(210, 100);
+        Point movementBeginAux;
+        movementBeginAux = new Point (100, 100);
+        Point movementEndAux;
+        movementEndAux = new Point (400, 100);
+
         for (int i = 0; i < enemy.length; i++) {
-           
-            // Enemys
-            
             this.enemy[i] = new Enemy (originAux);
+            this.enemy[0].setBegin(movementBeginAux);
+            this.enemy[0].setEnd(movementEndAux);
             
             glBegin(GL_TRIANGLES);
                 vertexAux = enemy[i].getLeft();
@@ -147,9 +155,17 @@ public class Game {
             glEnd();
             
             this.originAux.x += 70;
+            this.enemy[0].move();
+        }
+        
+        Display.update();
+        Display.sync(60);
+            
+        if (Display.isCloseRequested()) {
+            isRuning = false;
         }
     }
-    
+   
     /**
      * @param args the command line arguments
      */
