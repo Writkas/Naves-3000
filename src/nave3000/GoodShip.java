@@ -37,12 +37,19 @@ public class GoodShip extends Entity {
         this.down = new Point();
         this.down.x = super.getX()-20;
         this.down.y = super.getY()+20;
-    }
-   public void move(){
-       int p1x = 150, p1y = 150;
-       int p2x = 200, p2y = 150;
-       int p3x = 200, p3y = 200;
-      
+    
+    if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+                Display.destroy();
+                System.exit(0);
+            }
+            else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+                 this.right.x  -=20;
+                
+            }
+            else if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+               this.left.x += 20;
+            }}
+   public void move(){     
    }
     public Point getLeft(){
     return this.left;
