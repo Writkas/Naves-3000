@@ -3,6 +3,16 @@
  * and open the template in the editor.
  */
 package nave3000;
+
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.Display;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_QUADS;
+import static org.lwjgl.opengl.GL11.glBegin;
+import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.glEnd;
+import static org.lwjgl.opengl.GL11.glVertex2i;
+
 /**
  *
  * @author Debora-Pato
@@ -17,18 +27,23 @@ public class GoodShip extends Entity {
         
         // Asignar vertices
         this.left = new Point();
-        this.left.x = super.getX() - 20;
-        this.left.y = super.getY() - 20;
+        this.left.x = super.getX();
+        this.left.y = super.getY()-20;
         
         this.right = new Point();
-        this.right.x = super.getX() + 20;
-        this.right.y = super.getY() - 20;
+        this.right.x = super.getX()+20;
+        this.right.y = super.getY()+20;
         
         this.down = new Point();
-        this.down.x = super.getX();
-        this.down.y = super.getY() + 20;
+        this.down.x = super.getX()-20;
+        this.down.y = super.getY()+20;
     }
-    
+   public void move(){
+       int p1x = 150, p1y = 150;
+       int p2x = 200, p2y = 150;
+       int p3x = 200, p3y = 200;
+      
+   }
     public Point getLeft(){
     return this.left;
     }
@@ -38,4 +53,5 @@ public class GoodShip extends Entity {
     public Point getDown(){
     return this.down;
     }
-}
+    
+    }

@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package nave3000;
 
 // Core Java Imports
@@ -90,18 +87,18 @@ public final class Game {
     public void frameRendering () {
         // Temp: Acá se dibujaran todo
         
-        goodshipOrigin = new Point(400, 320);
-        goodship = new GoodShip (goodshipOrigin);
-
         // GoodShip
         
+        goodshipOrigin = new Point(400, 540);
+        goodship = new GoodShip (goodshipOrigin);
+        
         glBegin(GL_TRIANGLES);
-                goodshipOrigin = goodship.getLeft();
-                glVertex2i(goodshipOrigin.x, goodshipOrigin.y);
-                goodshipOrigin = goodship.getRight();
-                glVertex2i(goodshipOrigin.x, goodshipOrigin.y);
-                goodshipOrigin = goodship.getDown();
-                glVertex2i(goodshipOrigin.x, goodshipOrigin.y);
+            goodshipOrigin = goodship.getLeft();
+            glVertex2i(goodshipOrigin.x, goodshipOrigin.y);
+            goodshipOrigin = goodship.getRight();
+            glVertex2i(goodshipOrigin.x, goodshipOrigin.y);
+            goodshipOrigin = goodship.getDown();
+            glVertex2i(goodshipOrigin.x, goodshipOrigin.y);
         glEnd();
         
         // Word
@@ -156,6 +153,20 @@ public final class Game {
             
             this.originAux.x += 70;
             this.enemy[0].move();
+        }
+        
+        if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+            Display.destroy();
+            System.exit(0);
+        }
+        
+        else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+            goodshipOrigin.x  -=20;  
+        }
+          
+        else if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+            goodshipOrigin.x += 20;
+             
         }
         
         Display.update();
