@@ -1,7 +1,7 @@
 
 # Netbeans
-/build/
-nbproject/private/*
+build/
+nbproject/private/
 
 # Linux
 .directory
