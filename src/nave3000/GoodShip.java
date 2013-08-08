@@ -60,5 +60,9 @@ public class GoodShip extends Entity {
     public Point getDown(){
     return this.down;
     }
-    
+    public void moveRight() {
+        this.left.x -= 20;
+        this.right.x -= 20;
+        this.down.x -= 20;
     }
+}

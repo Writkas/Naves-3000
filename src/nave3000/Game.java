@@ -25,8 +25,8 @@ public final class Game {
     
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
-    private String WINDOW_TITLE = "Nave3000";
-    private final int TOTAL_ENEMYS = 6;
+    private static String WINDOW_TITLE = "Nave3000";
+    private static final int TOTAL_ENEMYS = 6;
      
     /*
      *  Atributes
@@ -95,7 +95,15 @@ public final class Game {
         Point movementEndAux;
         movementEndAux = new Point (400, 100);
         
-        for (int i = 0; i < enemy.length; i++) {
+        // Punto inicial de los enemigos
+        originAux.x = 100;
+        originAux.y = 100;
+        
+        for (int i = 0; i < Game.TOTAL_ENEMYS; i++) {
+            //this.originEnemy[i] = 
+        }
+        
+        for (int i = 0; i < Game.TOTAL_ENEMYS; i++) {
             this.enemy[i] = new Enemy (originAux);
         }
     }
@@ -154,9 +162,7 @@ public final class Game {
                 glVertex2i(vertexAux.x, vertexAux.y);
             glEnd();
             
-            this.originAux.x += 70; 
-
-            this.originAux.x += 70;
+            //this.originAux.x += 70;
         }
         
         if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
@@ -165,12 +171,12 @@ public final class Game {
         }
         
         else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-            goodshipOrigin.x  -=20;  
+            goodshipOrigin.x  -=20;
+            System.out.println (goodshipOrigin.x);
         }
           
         else if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-            goodshipOrigin.x += 20;
-             
+            goodship.moveRight();
         }
         
         Display.update();
