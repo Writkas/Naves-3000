@@ -3,7 +3,7 @@ package nave3000;
 
 public abstract class Entity 
 {
-    private Point originPoint;
+    protected Point originPoint;
     
     Entity (Point origin) {
         originPoint= new Point();

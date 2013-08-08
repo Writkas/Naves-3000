@@ -20,7 +20,7 @@ import static org.lwjgl.opengl.GL11.glVertex2i;
 public class GoodShip extends Entity {
     
     private Point left, right, down;
-
+    private Point begin,end;
     GoodShip (Point origin) {
         // Asignar Origen
         super (origin);
@@ -37,18 +37,11 @@ public class GoodShip extends Entity {
         this.down = new Point();
         this.down.x = super.getX()-20;
         this.down.y = super.getY()+20;
-    
-    if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
-                Display.destroy();
-                System.exit(0);
-            }
-            else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-                 this.right.x  -=20;
-                
-            }
-            else if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-               this.left.x += 20;
-            }}
+        
+        this.begin = new Point (85,0);
+        this.end = new Point (715,0);
+    }
+       
    public void move(){     
    }
     public Point getLeft(){
@@ -61,8 +54,23 @@ public class GoodShip extends Entity {
     return this.down;
     }
     public void moveRight() {
-        this.left.x -= 20;
-        this.right.x -= 20;
-        this.down.x -= 20;
+        if (super.getX()<= this.end.x){
+        this.left.x +=5 ;
+        this.right.x += 5;
+        this.down.x += 5;
+        super.setX(getX()+5);
+        }
+        
+        System.out.println(super.getX());
     }
+    public void moveLeft(){
+     if (super.getX() >= this.begin.x){
+        this.left.x -=5;
+        this.right.x -=5;
+        this.down.x -=5;
+        super.setX(getX()-5);
+      }
+     System.out.println(super.getX());
+    }
+    
 }

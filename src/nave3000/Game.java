@@ -171,8 +171,7 @@ public final class Game {
         }
         
         else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-            goodshipOrigin.x  -=20;
-            System.out.println (goodshipOrigin.x);
+            goodship.moveLeft();
         }
           
         else if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
