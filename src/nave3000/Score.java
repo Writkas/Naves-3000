@@ -10,4 +10,6 @@ package nave3000;
  */
 public class Score {
  private int point;
+
+ 
 }

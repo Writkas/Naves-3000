@@ -4,7 +4,6 @@ package nave3000;
 public class Enemy extends Entity {
    
     private Point left, right, down;
-    
     Enemy (Point origin) {
         // Asignar Origen
         super (origin);

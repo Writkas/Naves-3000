@@ -85,15 +85,13 @@ public class Game {
     }
     
     private void initEntities () {
-        goodshipOrigin = new Point(400, 320);
-        goodship = new GoodShip (goodshipOrigin);
-
         //GoodShip
+        goodshipOrigin = new Point(400, 540);
+        goodship = new GoodShip (goodshipOrigin);
         
         glBegin(GL_TRIANGLES);
                 goodshipOrigin = goodship.getLeft();
                 glVertex2i(goodshipOrigin.x, goodshipOrigin.y);
-                System.out.println ("x: " + goodshipOrigin.x + " , y: " + goodshipOrigin.y);
                 goodshipOrigin = goodship.getRight();
                 glVertex2i(goodshipOrigin.x, goodshipOrigin.y);
                 goodshipOrigin = goodship.getDown();
@@ -147,9 +145,23 @@ public class Game {
             glEnd();
             
             this.originAux.x += 70;
+            
+          if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+                Display.destroy();
+                System.exit(0);
+            }
+            else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+                goodshipOrigin.x  -=20;
+                
+            }
+            else if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+               goodshipOrigin.x += 20;
+               
+            }
         }
     }
     
+
     /**
      * @param args the command line arguments
      */
