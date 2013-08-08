@@ -74,6 +74,7 @@ public final class Game {
     }
     
     private void initEntities () {
+        //GoodShip
         // Temp: Acá se inicializarán las entidades
         
         // World
@@ -153,6 +154,8 @@ public final class Game {
                 glVertex2i(vertexAux.x, vertexAux.y);
             glEnd();
             
+            this.originAux.x += 70; 
+
             this.originAux.x += 70;
         }
         
@@ -175,6 +178,7 @@ public final class Game {
             
         if (Display.isCloseRequested()) {
             isRuning = false;
+
         }
     }
    
