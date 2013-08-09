@@ -1,15 +1,23 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package nave3000;
 
-/**
- *
- * @author writkas
- */
 public class Score {
- private int point;
-
- 
+    private int score;
+    private String name;
+    
+    public void setScore (int score) {
+        this.score = score;
+    }
+    
+    public int getScore () {
+        return this.score;
+    }
+    
+    public void setName (String name) {
+        this.name = name;
+    }
+    
+    public String getName () {
+        return this.name;
+    }
 }
