@@ -4,6 +4,7 @@ package nave3000;
 // Core Java Imports
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.ArrayList;
 
 // LWJGL Imports
 import org.lwjgl.*;
@@ -31,8 +32,9 @@ public final class Game {
      *  Atributes
      */
     
+    private ArrayList enemies;
+    private Enemy enemyAux;
     private Enemy [] enemy = new Enemy [TOTAL_ENEMYS]; 
-    private Point [] originEnemy = new Point [TOTAL_ENEMYS];
     private boolean isRuning = true;
     private int fps;
     private World world;
@@ -67,7 +69,7 @@ public final class Game {
         try {
             Display.setDisplayMode (new DisplayMode(Game.WIDTH, Game.HEIGHT));
             Display.create ();
-            Display.setTitle(this.WINDOW_TITLE);
+            Display.setTitle(Game.WINDOW_TITLE);
         } catch (LWJGLException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -75,8 +77,7 @@ public final class Game {
     
     private void initEntities () {
         //GoodShip
-        // Temp: Acá se inicializarán las entidades
-        
+
         // World
         
         worldOrigin = new Point(400, 320);
@@ -96,13 +97,17 @@ public final class Game {
         
         // Creo los enemigos y asigno el origen de los enemigos
         for (int i = 0; i < Game.TOTAL_ENEMYS; i++) {
-            this.originEnemy[i] = originAux;
             this.originAux.x += 75;
             this.enemy[i] = new Enemy (originAux);
+            this.enemyAux = new Enemy (originAux);
+            //this.enemies.add(this.enemyAux);
         }
         
         // Asignando el inicio y fin de los movimientos de los enemigos
         for (int i = 0; i < Game.TOTAL_ENEMYS; i++) {
+            //enemyAux = (Enemy) this.enemies.get(i);
+            //this.enemies.get(i).setBegin(new Point (75 + 75 * i, 0));
+            //this.enemies.get(i).setEnd(new Point (350 + 75 * i, 0));
             this.enemy[i].setBegin(new Point (75 + 75 * i, 0));
             this.enemy[i].setEnd(new Point (350 + 75 * i, 0));
         }
@@ -116,10 +121,11 @@ public final class Game {
     }
     
     public void frameRendering () {
-        // Temp: Acá se dibujaran todo
         
         // GoodShip
- 
+        
+        glColor3f(0, 0.5f, 0.5f);
+        
         glBegin(GL_TRIANGLES);
             goodshipOrigin = goodship.getLeft();
             glVertex2i(goodshipOrigin.x, goodshipOrigin.y);
@@ -129,8 +135,18 @@ public final class Game {
             glVertex2i(goodshipOrigin.x, goodshipOrigin.y);
         glEnd();
         
+        // GoodShip (Life)
+        
+        glBegin(GL_TRIANGLES);
+            glVertex2i(30, 10);
+            glVertex2i(50, 50);
+            glVertex2i(10, 50);
+        glEnd();
+        
         // Word
 
+        glColor3f(0, 0, 1);
+        
         glBegin(GL_LINES);
             worldOrigin = world.getupperLeft();
             glVertex2i(worldOrigin.x, worldOrigin.y);         
@@ -151,6 +167,8 @@ public final class Game {
         glEnd();
 
         // Enemys
+        
+        glColor3f(1, 0, 0);
         
         for (int i = 0; i < Game.TOTAL_ENEMYS; i++) {
             glBegin(GL_TRIANGLES);
@@ -190,6 +208,10 @@ public final class Game {
         
         
         
+        else if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+            goodship.moveRight();
+        }
+        
         Display.update();
         Display.sync(60);
             
@@ -197,7 +219,7 @@ public final class Game {
             isRuning = false;
         }
     }
-   
+
     /**
      * @param args the command line arguments
      */
