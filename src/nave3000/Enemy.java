@@ -92,17 +92,16 @@ public class Enemy extends Entity {
     private void moveLeft () {
         // Move vertex
         super.setX(super.getX() - MOVEMENT);
-        this.left.x = super.getX() - MOVEMENT;
-        this.right.x = super.getX() - MOVEMENT;
-        this.down.x = super.getX() - MOVEMENT; 
-        
+        this.left.x -= MOVEMENT;
+        this.right.x -= MOVEMENT;
+        this.down.x -= MOVEMENT; 
     }
     
     private void moveRight () {
         // Move vertex
-        this.left.x = super.getX() + MOVEMENT;
-        this.right.x = super.getX() + MOVEMENT;
-        this.down.x = super.getX() + MOVEMENT;
         super.setX(super.getX() + MOVEMENT);
+        this.left.x += MOVEMENT;
+        this.right.x += MOVEMENT;
+        this.down.x += MOVEMENT; 
     }
 }
