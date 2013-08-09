@@ -17,6 +17,7 @@ import static org.lwjgl.opengl.GL11.glVertex2i;
  */
 public class Missile extends Entity{
       private Point up,down;
+      private Point inicio,fin;
       Missile (Point origin){
        // Asignar Origen
         super (origin);
@@ -26,14 +27,25 @@ public class Missile extends Entity{
         this.up.y = super.getY()-20;
         
         this.down = new Point();
-        this.down.x = super.getX()+20;
-        this.down.y = super.getY()+20;
+        this.down.x = super.getX();
+        this.down.y = super.getY()+15;
+        this.inicio= new Point (0,500);
+        this.fin=new Point (0,100);
       }
-      public Point getup(){
+      public Point getup (){
       return this.up;
       }
-      public Point getdown(){
+      public Point getdown (){
       return this.down;
       }
-}
+       public void Shoot(){
+     if (super.getY() >= this.fin.y) {
+        this.up.y-= 10;
+        super.setY(getY()-10);
+         }  
+       } 
+     }
+
+        
+
 

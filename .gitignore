@@ -6,3 +6,4 @@ nbproject/private/
 # Linux
 .directory
 *~
+/dist/

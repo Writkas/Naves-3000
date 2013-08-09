@@ -72,5 +72,4 @@ public class GoodShip extends Entity {
       }
      System.out.println(super.getX());
     }
-    
 }

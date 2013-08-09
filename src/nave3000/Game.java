@@ -42,7 +42,8 @@ public final class Game {
     // Varialbe temporal para asignar el origen de una figura
     private Point originAux;
     private Point vertexAux; // Variable temporal para asignar vertices
-
+    private Missile missile;
+    private Point missileOrigin;
     Game () {
         this.configDisplay();
         this.configOpenGL();
@@ -86,9 +87,9 @@ public final class Game {
        
         goodshipOrigin = new Point(400, 540);
         goodship = new GoodShip (goodshipOrigin);
-        
-        // Enemy
- 
+        //Missile
+        missileOrigin = new Point(400,500);
+        missile = new Missile(missileOrigin);
         // Punto inicial de los enemigos
         originAux.x = 130;
         originAux.y = 100;
@@ -163,8 +164,12 @@ public final class Game {
             
             this.enemy[i].move();
         }
-
-
+        glBegin(GL_LINES);
+            missileOrigin =missile.getup();
+         glVertex2i(missileOrigin.x, missileOrigin.y); 
+            missileOrigin=missile.getdown();
+         glVertex2i(missileOrigin.x, missileOrigin.y); 
+        glEnd();
         if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
             Display.destroy();
             System.exit(0);
@@ -177,6 +182,13 @@ public final class Game {
         else if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
             goodship.moveRight();
         }
+        if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)){
+            missile.Shoot();
+            
+        }
+            
+        
+        
         
         Display.update();
         Display.sync(60);
