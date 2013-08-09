@@ -88,16 +88,12 @@ public final class Game {
         goodship = new GoodShip (goodshipOrigin);
         
         // Enemy
-        
-        Point movementBeginAux;
-        movementBeginAux = new Point (100, 100);
-        Point movementEndAux;
-        movementEndAux = new Point (400, 100);
-        
+ 
         // Punto inicial de los enemigos
         originAux.x = 130;
         originAux.y = 100;
         
+        // Creo los enemigos y asigno el origen de los enemigos
         for (int i = 0; i < Game.TOTAL_ENEMYS; i++) {
             this.originEnemy[i] = originAux;
             this.originAux.x += 75;
@@ -105,12 +101,10 @@ public final class Game {
         }
         
         // Asignando el inicio y fin de los movimientos de los enemigos
-        /*for (int i = 0; i < Game.TOTAL_ENEMYS; i++) {
-            this.enemy[i].setBegin(new Point (30, 100));
-            this.enemy[i].setEnd(new Point (300, 100));
-        }*/
-        this.enemy[0].setBegin(new Point (30, 100));
-        this.enemy[0].setEnd(new Point (200, 100));
+        for (int i = 0; i < Game.TOTAL_ENEMYS; i++) {
+            this.enemy[i].setBegin(new Point (75 + 75 * i, 0));
+            this.enemy[i].setEnd(new Point (350 + 75 * i, 0));
+        }
     }
     
     public void gameLoop () {
@@ -167,11 +161,9 @@ public final class Game {
                 glVertex2i(vertexAux.x, vertexAux.y);
             glEnd();
             
-            this.enemy[0].move();
+            this.enemy[i].move();
         }
-        // Test..
-        //vertexAux = enemy[0].getLeft();
-        //System.out.println("vertexAux.x: " + vertexAux.x);
+
 
         if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
             Display.destroy();
