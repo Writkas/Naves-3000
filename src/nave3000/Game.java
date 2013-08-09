@@ -187,7 +187,7 @@ public final class Game {
         }
         
         Display.update();
-        Display.sync(10);
+        Display.sync(60);
             
         if (Display.isCloseRequested()) {
             isRuning = false;
