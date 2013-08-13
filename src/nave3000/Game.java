@@ -32,7 +32,7 @@ public final class Game {
      *  Atributes
      */
     
-    private ArrayList enemies;
+    private ArrayList <Enemy> enemies;
     private Enemy enemyAux;
     private Enemy [] enemy = new Enemy [TOTAL_ENEMYS]; 
     private boolean isRuning = true;
@@ -46,6 +46,7 @@ public final class Game {
     private Point vertexAux; // Variable temporal para asignar vertices
     private Missile missile;
     private Point missileOrigin;
+    
     Game () {
         this.configDisplay();
         this.configOpenGL();
@@ -146,23 +147,18 @@ public final class Game {
         // Word
 
         glColor3f(0, 0, 1);
-        
-        glBegin(GL_LINES);
+        glLineWidth(3);
+
+        glBegin(GL_LINE_LOOP);
             worldOrigin = world.getupperLeft();
             glVertex2i(worldOrigin.x, worldOrigin.y);         
             worldOrigin = world.getupperRight(); 
             glVertex2i(worldOrigin.x, worldOrigin.y);
            
-            glVertex2i(worldOrigin.x, worldOrigin.y);
-            worldOrigin = world.getbottomRight();   
+            worldOrigin = world.getbottomRight();
             glVertex2i(worldOrigin.x, worldOrigin.y);
             
-            glVertex2i(worldOrigin.x, worldOrigin.y);
             worldOrigin = world.getbottomLeft(); 
-            glVertex2i(worldOrigin.x, worldOrigin.y);
-              
-            glVertex2i(worldOrigin.x, worldOrigin.y);
-            worldOrigin = world.getupperLeft();
             glVertex2i(worldOrigin.x, worldOrigin.y);
         glEnd();
 
@@ -203,11 +199,8 @@ public final class Game {
         if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)){
             missile.Shoot();
             
-        }
-            
-        
-        
-        
+        }       
+           
         else if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
             goodship.moveRight();
         }
