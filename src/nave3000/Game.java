@@ -202,7 +202,6 @@ public final class Game {
         }
         if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)){
             missile.Shoot();
-            
         }
             
         

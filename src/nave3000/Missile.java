@@ -15,8 +15,7 @@ public class Missile extends Entity{
         this.down = new Point();
         this.down.x = super.getX();
         this.down.y = super.getY()+15;
-        this.inicio= new Point (0,500);
-        this.fin=new Point (0,100);
+        this.fin = new Point (0,100);
       }
       public Point getup (){
       return this.up;
@@ -26,8 +25,9 @@ public class Missile extends Entity{
       }
        public void Shoot(){
      if (super.getY() >= this.fin.y) {
-        this.up.y-= 10;
-        super.setY(getY()-10);
+        this.up.y-= 5;
+        this.down.y-=5;
+        super.setY(getY()-5);
          }  
        } 
      }
