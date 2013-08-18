@@ -3,10 +3,10 @@ package nave3000;
 
 public abstract class Entity 
 {
-    protected Point originPoint;
+    private Point originPoint;
     
     Entity (Point origin) {
-        originPoint= new Point();
+        originPoint = new Point();
         this.originPoint.x = origin.x;
         this.originPoint.y = origin.y;
     }
@@ -25,6 +25,10 @@ public abstract class Entity
     
     protected int getY () {
         return this.originPoint.y;
+    }
+    
+    protected Point getOrigin () {
+        return this.originPoint;
     }
     
     // Temp: getY debería llamarse getOriginY, para hacer referencia al origen.

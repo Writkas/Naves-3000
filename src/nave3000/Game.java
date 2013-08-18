@@ -26,20 +26,23 @@ public final class Game {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
     private static String WINDOW_TITLE = "Nave3000";
-    private static final int TOTAL_ENEMYS = 6;
+    private static final int TOTAL_ENEMIES = 6;
+    private static final int TOTAL_SHOTS = 3;
      
     /*
-     *  Atributes
+     *  Variables
      */
     
     private ArrayList <Enemy> enemies;
+    private ArrayList <Missile> missiles;
+    private int missilesOnScreen = 0;
     private Enemy enemyAux;
     private boolean isRuning = true;
     private World world;
     private Point worldOrigin;
     private GoodShip goodShip;
     private Point goodShipOrigin;
-    // Varialbe temporal para asignar el origen de una figura
+    // Variable temporal para asignar el origen de una figura
     private Point originAux;
     private Missile missile;
     private Point missileOrigin;
@@ -74,36 +77,45 @@ public final class Game {
     }
     
     private void initEntities () {
-        enemies = new ArrayList <> ();
-
+        
         // World
+        //
         
         worldOrigin = new Point(400, 320);
         world = new World (worldOrigin);
         originAux = new Point();
         
         // Goodship
-       
+        //
+        
         goodShipOrigin = new Point(400, 540);
         goodShip = new GoodShip (goodShipOrigin);
         
         // Missile
-        missileOrigin = new Point(400,500);
+        //
+        
+        missiles = new ArrayList <> ();
+        
+        missileOrigin = new Point(400, 500);
         missile = new Missile(missileOrigin);
         
-        // Punto inicial de los enemigos
+        // Enemies
+        //
+        
+        enemies = new ArrayList <> ();
+        
+        // Initial point of the enemies
         originAux.x = 130;
         originAux.y = 100;
         
-        // Crea los enemigos y asigno el origen de los enemigos
-        for (int i = 0; i < Game.TOTAL_ENEMYS; i++) {
+        // Create the enemies and assign origin of enemies
+        for (int i = 0; i < Game.TOTAL_ENEMIES; i++) {
             this.originAux.x += 75;
             this.enemies.add(new Enemy (originAux));
         }
         
         // Asignando el inicio y fin de los movimientos de los enemigos
-        for (int i = 0; i < Game.TOTAL_ENEMYS; i++) {
-            enemyAux = this.enemies.get(i);
+        for (int i = 0; i < Game.TOTAL_ENEMIES; i++) {
             this.enemies.get(i).setBegin(new Point (75 + 75 * i, 0));
             this.enemies.get(i).setEnd(new Point (350 + 75 * i, 0));
         }
@@ -119,6 +131,7 @@ public final class Game {
     public void frameRendering () {
         
         // GoodShip
+        //
         
         glColor3f(0, 0.5f, 0.5f);
         
@@ -132,7 +145,6 @@ public final class Game {
         glEnd();
         
         // GoodShip (Life)
-        
         glBegin(GL_TRIANGLES);
             glVertex2i(30, 10);
             glVertex2i(50, 50);
@@ -140,6 +152,7 @@ public final class Game {
         glEnd();
         
         // Word
+        //
 
         glColor3f(0, 0, 1);
         glLineWidth(3);
@@ -156,11 +169,12 @@ public final class Game {
         glEnd();
 
         // Enemys
+        //
         
         glColor3f(1, 0, 0); // Red
         
         // Place enemies on the screen, also moves
-        for (int i = 0; i < Game.TOTAL_ENEMYS; i++) {
+        for (int i = 0; i < Game.TOTAL_ENEMIES; i++) {
             glBegin(GL_TRIANGLES);
                 glVertex2i(this.enemies.get(i).getLeft().getX(), 
                         this.enemies.get(i).getLeft().getY());
@@ -174,13 +188,31 @@ public final class Game {
         }
         
         // Missile
+        //
+
+        // Mover los misiles en caso de que hayan alguno/s en pantalla, también
+        // detecta colisiones con el final de recorrido del misil.
+        if (this.missilesOnScreen > 0) {
+            for (int i = 0; i < this.missilesOnScreen; i++) {
+                glBegin(GL_LINES);
+                    glVertex2i(this.missiles.get(i).getUpX(), 
+                            this.missiles.get(i).getUpY()); 
+                    glVertex2i(this.missiles.get(i).getDownX(), 
+                            this.missiles.get(i).getDownY()); 
+                glEnd();
+                
+                this.missiles.get(i).moveUp();
+                
+                 // Colisiona?
+                if (this.missiles.get(i).endCollided()) {
+                    this.missiles.remove(i);
+                    missilesOnScreen--;
+                }
+            }
+        }
         
-        glBegin(GL_LINES);
-            missileOrigin = missile.getup();
-            glVertex2i(missileOrigin.x, missileOrigin.y); 
-            missileOrigin= missile.getdown();
-            glVertex2i(missileOrigin.x, missileOrigin.y); 
-        glEnd();
+        // Keyboard
+        //
         
         if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
             Display.destroy();
@@ -195,19 +227,24 @@ public final class Game {
             goodShip.moveRight();
         }
         
-        if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)){
-            missile.Shoot();
-
-        }         
+        if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+            if (missilesOnScreen < Game.TOTAL_SHOTS) {
+                this.missiles.add(new Missile(this.goodShip.getOrigin()));
+                missilesOnScreen++;
+            }
+        }
+        
         else if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
             goodShip.moveRight();
         }
+        
         Display.update();
         Display.sync(60);
     
         if (Display.isCloseRequested()) {
             isRuning = false;
-        }}
+        }
+    }
 
     /**
      * @param args the command line arguments

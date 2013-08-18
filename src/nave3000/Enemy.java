@@ -2,9 +2,15 @@
 package nave3000;
 
 public class Enemy extends Entity {
-   
+    
     /*
-     * Attributes
+     * Constants
+     */
+    
+    private final int MOVEMENT = 1; // 1px 
+    
+    /*
+     * Variables
      */
     
     private Point left, right, down;
@@ -13,11 +19,7 @@ public class Enemy extends Entity {
     // Movement state 1: right, 2: left
     private int movementState = 1;
     
-    /*
-     * Constant
-     */
-    
-    private final int MOVEMENT = 1; // 1px
+
     
     Enemy (Point origin) {
         // Assign origen
@@ -42,29 +44,22 @@ public class Enemy extends Entity {
     }
  
     public void move () {
-        System.out.println("Move!");
         
         // Right movement
         if (movementState == 1) {
             moveRight ();
             
-            if (super.getX() >= this.end.x) {
-                System.out.println("Hola1!");
+            if (super.getX() >= this.end.x)
                 movementState = 2; // Left
-            }
         }
         
         // Left movement
         if (movementState == 2) {
             moveLeft ();
             
-            if (super.getX() <= this.begin.x) {
-                System.out.println("Hola2!");
+            if (super.getX() <= this.begin.x)
                 movementState = 1; // Right
-            }
         }
-        
-        System.out.println (movementState);
     }
     
     public void setBegin (Point begin) {
