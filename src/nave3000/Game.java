@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 // LWJGL Imports
 import org.lwjgl.*;
+import org.lwjgl.Sys;
 import org.lwjgl.opengl.*;
 import org.lwjgl.input.Keyboard;
 import static org.lwjgl.opengl.GL11.*;
@@ -27,7 +28,7 @@ public final class Game {
     private static final int HEIGHT = 600;
     private static String WINDOW_TITLE = "Nave3000";
     private static final int TOTAL_ENEMIES = 6;
-    private static final int TOTAL_SHOTS = 3;
+    private static final int TOTAL_SHOTS = 1;
      
     /*
      *  Variables
@@ -46,6 +47,9 @@ public final class Game {
     private Point originAux;
     private Missile missile;
     private Point missileOrigin;
+    
+    // Time and Frames
+    private static long lastFrame;
     
     Game () {
         this.configDisplay();
@@ -96,9 +100,6 @@ public final class Game {
         
         missiles = new ArrayList <> ();
         
-        missileOrigin = new Point(400, 500);
-        missile = new Missile(missileOrigin);
-        
         // Enemies
         //
         
@@ -133,7 +134,7 @@ public final class Game {
         // GoodShip
         //
         
-        glColor3f(0, 0.5f, 0.5f);
+        glColor3f(0f, 0.5f, 0.5f);
         
         glBegin(GL_TRIANGLES);
             glVertex2i(this.goodShip.getLeft().getX(), 
@@ -174,17 +175,25 @@ public final class Game {
         glColor3f(1, 0, 0); // Red
         
         // Place enemies on the screen, also moves
-        for (int i = 0; i < Game.TOTAL_ENEMIES; i++) {
-            glBegin(GL_TRIANGLES);
-                glVertex2i(this.enemies.get(i).getLeft().getX(), 
-                        this.enemies.get(i).getLeft().getY());
-                glVertex2i(this.enemies.get(i).getRight().getX(), 
-                        this.enemies.get(i).getRight().getY());
-                glVertex2i(this.enemies.get(i).getDown().getX(), 
-                        this.enemies.get(i).getDown().getY());
-            glEnd();
+        for (int i = 0; i < Game.TOTAL_ENEMIES; i++) {            
+            try {
+                if (this.enemies.get(i) != null) {
+                    glBegin(GL_TRIANGLES);
+                        glVertex2i(this.enemies.get(i).getLeft().getX(), 
+                                this.enemies.get(i).getLeft().getY());
+                        glVertex2i(this.enemies.get(i).getRight().getX(), 
+                                this.enemies.get(i).getRight().getY());
+                        glVertex2i(this.enemies.get(i).getDown().getX(), 
+                                this.enemies.get(i).getDown().getY());
+                    glEnd();
+
+                    this.enemies.get(i).move();
+                }
+            }
             
-            this.enemies.get(i).move();
+            catch (java.lang.IndexOutOfBoundsException ioobe) {
+                System.out.println (ioobe.getClass());
+            }
         }
         
         // Missile
@@ -207,6 +216,27 @@ public final class Game {
                 if (this.missiles.get(i).endCollided()) {
                     this.missiles.remove(i);
                     missilesOnScreen--;
+                }
+            }
+        }
+        
+        // Interactions
+        //
+        
+        for (int i = 0; i < Game.TOTAL_ENEMIES; i++) {
+            
+            for (int j = 0; j < this.missilesOnScreen; j++) {
+                
+                try {
+                    if (this.enemies.get(i).isDamanged(
+                            this.missiles.get(j).getUpX(), 
+                            this.missiles.get(j).getUpY())) {
+                            this.enemies.remove(i);
+                    }
+                }
+                
+                catch (java.lang.IndexOutOfBoundsException iofbe) {
+                    System.out.println ("test1");
                 }
             }
         }
@@ -245,7 +275,17 @@ public final class Game {
             isRuning = false;
         }
     }
+    
+    private static long getTime() {
+        return (Sys.getTime() * 1000) / Sys.getTimerResolution();
+    }
 
+    private static double getDelta() {
+        long currentTime = getTime();
+        double delta = (double) (currentTime - lastFrame);
+        lastFrame = getTime();
+        return delta;
+    }
     /**
      * @param args the command line arguments
      */

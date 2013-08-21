@@ -31,7 +31,7 @@ public class Missile extends Entity {
         this.down.setY(super.getY() + this.SIZE);
         
         // Missile end
-        this.end = new Point (super.getX(), 100);
+        this.end = new Point (super.getX(), 90);
 
         // This on screen ?
         onScreen = true;

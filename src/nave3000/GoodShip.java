@@ -44,19 +44,16 @@ public class GoodShip extends Entity {
             this.left.x +=5 ;
             this.right.x += 5;
             this.down.x += 5;
-            super.setX(getX()+5);
+            super.setX(super.getX() + 5);
         }
-        
-        System.out.println(super.getX());
     }
     
-    public void moveLeft(){
+    public void moveLeft() {
         if (super.getX() >= this.begin.x) {
-            this.left.x -=5;
-            this.right.x -=5;
-            this.down.x -=5;
-            super.setX(getX()-5);
+            this.left.x -= 5;
+            this.right.x -= 5;
+            this.down.x -= 5;
+            super.setX(super.getX() - 5);
         }
-        System.out.println(super.getX());
     }
 }
