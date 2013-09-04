@@ -27,7 +27,7 @@ public class Enemy extends Entity {
         // Assign origen
         super (origin);
         
-        // Asignar vertices
+        // Assign vertex
         this.left = new Point();
         this.left.x = super.getX() - this.SIZE;
         this.left.y = super.getY() - this.SIZE;
@@ -40,9 +40,9 @@ public class Enemy extends Entity {
         this.down.x = super.getX();
         this.down.y = super.getY() + this.SIZE;
         
-        // Por defecto sin movimiento
-        this.begin = new Point (0, 0);
-        this.end = new Point (0, 0);
+        // Default without movement
+        this.begin = new Point ();
+        this.end = new Point ();
     }
  
     public void move () {
@@ -103,16 +103,10 @@ public class Enemy extends Entity {
     }
 
     boolean isDamanged (int x, int y) {
-       boolean result = false;
        boolean collisionDetection = (super.getX() - this.SIZE_IN_X <= x 
                && super.getX() + this.SIZE_IN_X >= x
                && super.getY() + this.SIZE  >= y);
        
-       if (collisionDetection) {
-           result = true;
-           System.out.println ("OMG!! is " + result);
-       }
-       
-       return result;
+       return (collisionDetection) ? true : false;
     }
 }

@@ -4,7 +4,7 @@ package nave3000;
 public class Missile extends Entity {
     
     /*
-     * Constants
+     * Constant
      */
     
     private final int SIZE = 1; // Size of the Missile
@@ -16,7 +16,6 @@ public class Missile extends Entity {
     
     private Point up, down;
     private Point end;
-    private boolean onScreen = false;
     
     Missile (Point origin) {    
         // Assign origin
@@ -32,9 +31,6 @@ public class Missile extends Entity {
         
         // Missile end
         this.end = new Point (super.getX(), 90);
-
-        // This on screen ?
-        onScreen = true;
     }
     
     public int getUpY () {

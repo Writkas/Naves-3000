@@ -3,6 +3,17 @@ package nave3000;
 
 public class GoodShip extends Entity {
     
+    /*
+     * Constant
+     */
+    
+    private final int MOVEMENT = 5;
+    private final int SIZE = 20;
+    
+    /*
+     * Variables
+     */
+    
     private Point left, right, down;
     private Point begin,end;
     
@@ -13,15 +24,15 @@ public class GoodShip extends Entity {
         // Asignar vertices
         this.left = new Point();
         this.left.x = super.getX();
-        this.left.y = super.getY() - 20;
+        this.left.y = super.getY() - this.SIZE;
         
         this.right = new Point();
-        this.right.x = super.getX() + 20;
-        this.right.y = super.getY() + 20;
+        this.right.x = super.getX() + this.SIZE;
+        this.right.y = super.getY() + this.SIZE;
         
         this.down = new Point();
-        this.down.x = super.getX() - 20;
-        this.down.y = super.getY() + 20;
+        this.down.x = super.getX() - this.SIZE;
+        this.down.y = super.getY() + this.SIZE;
         
         this.begin = new Point (85,0);
         this.end = new Point (715,0);
@@ -41,19 +52,19 @@ public class GoodShip extends Entity {
     
     public void moveRight() {
         if (super.getX() <= this.end.x) {
-            this.left.x +=5 ;
-            this.right.x += 5;
-            this.down.x += 5;
-            super.setX(super.getX() + 5);
+            this.left.x += this.MOVEMENT ;
+            this.right.x += this.MOVEMENT;
+            this.down.x += this.MOVEMENT;
+            super.setX(super.getX() + this.MOVEMENT);
         }
     }
     
     public void moveLeft() {
         if (super.getX() >= this.begin.x) {
-            this.left.x -= 5;
-            this.right.x -= 5;
-            this.down.x -= 5;
-            super.setX(super.getX() - 5);
+            this.left.x -= this.MOVEMENT;
+            this.right.x -= this.MOVEMENT;
+            this.down.x -= this.MOVEMENT;
+            super.setX(super.getX() - this.MOVEMENT);
         }
     }
 }

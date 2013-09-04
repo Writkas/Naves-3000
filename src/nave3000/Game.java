@@ -28,7 +28,7 @@ public final class Game {
     private static final int HEIGHT = 600;
     private static String WINDOW_TITLE = "Nave3000";
     private static final int TOTAL_ENEMIES = 6;
-    private static final int TOTAL_SHOTS = 1;
+    private static final int TOTAL_SHOTS = 100;
      
     /*
      *  Variables
@@ -37,19 +37,16 @@ public final class Game {
     private ArrayList <Enemy> enemies;
     private ArrayList <Missile> missiles;
     private int missilesOnScreen = 0;
-    private Enemy enemyAux;
     private boolean isRuning = true;
     private World world;
-    private Point worldOrigin;
     private GoodShip goodShip;
-    private Point goodShipOrigin;
     // Variable temporal para asignar el origen de una figura
     private Point originAux;
-    private Missile missile;
-    private Point missileOrigin;
-    
+    // Movement
+    private int dX = 1, dY = 1; 
     // Time and Frames
     private static long lastFrame;
+    private double delta;
     
     Game () {
         this.configDisplay();
@@ -75,39 +72,39 @@ public final class Game {
             Display.setDisplayMode (new DisplayMode(Game.WIDTH, Game.HEIGHT));
             Display.create ();
             Display.setTitle(Game.WINDOW_TITLE);
-        } catch (LWJGLException ex) {
+        } 
+        
+        catch (LWJGLException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+ 
     private void initEntities () {
         
         // World
         //
         
-        worldOrigin = new Point(400, 320);
-        world = new World (worldOrigin);
-        originAux = new Point();
+        world = new World (new Point(400, 320));
         
         // Goodship
         //
         
-        goodShipOrigin = new Point(400, 540);
-        goodShip = new GoodShip (goodShipOrigin);
+        goodShip = new GoodShip (new Point(400, 540));
         
         // Missile
         //
         
+        // Init ArrayList
         missiles = new ArrayList <> ();
         
         // Enemies
         //
         
+        // Init ArrayList
         enemies = new ArrayList <> ();
-        
+
         // Initial point of the enemies
-        originAux.x = 130;
-        originAux.y = 100;
+        originAux = new Point (130, 100);
         
         // Create the enemies and assign origin of enemies
         for (int i = 0; i < Game.TOTAL_ENEMIES; i++) {
@@ -115,7 +112,7 @@ public final class Game {
             this.enemies.add(new Enemy (originAux));
         }
         
-        // Asignando el inicio y fin de los movimientos de los enemigos
+        // Assign the begin and end of the movements of the enemies
         for (int i = 0; i < Game.TOTAL_ENEMIES; i++) {
             this.enemies.get(i).setBegin(new Point (75 + 75 * i, 0));
             this.enemies.get(i).setEnd(new Point (350 + 75 * i, 0));
@@ -130,6 +127,8 @@ public final class Game {
     }
     
     public void frameRendering () {
+        
+        delta = getDelta();
         
         // GoodShip
         //
@@ -212,7 +211,7 @@ public final class Game {
                 
                 this.missiles.get(i).moveUp();
                 
-                 // Colisiona?
+                 // Collides?
                 if (this.missiles.get(i).endCollided()) {
                     this.missiles.remove(i);
                     missilesOnScreen--;
@@ -223,15 +222,14 @@ public final class Game {
         // Interactions
         //
         
+        // Interactions enemies with missiles       
         for (int i = 0; i < Game.TOTAL_ENEMIES; i++) {
-            
             for (int j = 0; j < this.missilesOnScreen; j++) {
-                
                 try {
                     if (this.enemies.get(i).isDamanged(
                             this.missiles.get(j).getUpX(), 
                             this.missiles.get(j).getUpY())) {
-                            this.enemies.remove(i);
+                        this.enemies.remove(i);
                     }
                 }
                 
@@ -284,8 +282,10 @@ public final class Game {
         long currentTime = getTime();
         double delta = (double) (currentTime - lastFrame);
         lastFrame = getTime();
+        
         return delta;
     }
+    
     /**
      * @param args the command line arguments
      */
