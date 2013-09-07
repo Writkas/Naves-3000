@@ -18,8 +18,8 @@ import static org.lwjgl.opengl.GL11.*;
  * @author Patricio René Sáez
  * @author Matías Muñoz Espinoza
  */
-public final class Game {
-    
+public final class Game
+{
     /*
      *  Constant
      */
@@ -28,7 +28,7 @@ public final class Game {
     private static final int HEIGHT = 600;
     private static String WINDOW_TITLE = "Nave3000";
     private static final int TOTAL_ENEMIES = 6;
-    private static final int TOTAL_SHOTS = 100;
+    private static final int TOTAL_SHOTS = 1;
      
     /*
      *  Variables
@@ -48,7 +48,8 @@ public final class Game {
     private static long lastFrame;
     private double delta;
     
-    Game () {
+    Game ()
+    {
         this.configDisplay();
         this.configOpenGL();
         this.initEntities();
@@ -56,18 +57,21 @@ public final class Game {
         Display.destroy();
     }
     
-    private void render () {
+    private void render ()
+    {
         glClear(GL_COLOR_BUFFER_BIT);
     }
     
-    private void configOpenGL () {
+    private void configOpenGL ()
+    {
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
         glOrtho(0, Game.WIDTH, Game.HEIGHT, 0, -1, 1);
         glMatrixMode(GL_MODELVIEW);
     }
     
-    private void configDisplay () {
+    private void configDisplay ()
+    {
         try {
             Display.setDisplayMode (new DisplayMode(Game.WIDTH, Game.HEIGHT));
             Display.create ();
@@ -79,8 +83,8 @@ public final class Game {
         }
     }
  
-    private void initEntities () {
-        
+    private void initEntities () 
+    {    
         // World
         //
         
@@ -119,14 +123,16 @@ public final class Game {
         }
     }
     
-    public void gameLoop () {
+    public void gameLoop ()
+    {
         while (isRuning) {
             this.render();            
             this.frameRendering();
         }
     }
     
-    public void frameRendering () {
+    public void frameRendering ()
+    {
         
         delta = getDelta();
         
@@ -274,11 +280,13 @@ public final class Game {
         }
     }
     
-    private static long getTime() {
+    private static long getTime()
+    {
         return (Sys.getTime() * 1000) / Sys.getTimerResolution();
     }
 
-    private static double getDelta() {
+    private static double getDelta()
+    {
         long currentTime = getTime();
         double delta = (double) (currentTime - lastFrame);
         lastFrame = getTime();
@@ -289,7 +297,8 @@ public final class Game {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         new Game();
     }
 }

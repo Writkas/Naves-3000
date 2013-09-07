@@ -1,8 +1,8 @@
 
 package nave3000;
 
-public class Missile extends Entity {
-    
+public class Missile extends Entity
+{
     /*
      * Constant
      */
@@ -17,7 +17,8 @@ public class Missile extends Entity {
     private Point up, down;
     private Point end;
     
-    Missile (Point origin) {    
+    Missile (Point origin)
+    {    
         // Assign origin
         super (origin);
         
@@ -33,27 +34,33 @@ public class Missile extends Entity {
         this.end = new Point (super.getX(), 90);
     }
     
-    public int getUpY () {
+    public int getUpY ()
+    {
         return this.up.getY();
     }
     
-    public int getDownY () {
+    public int getDownY ()
+    {
         return this.down.getY();
     }
     
-    public int getUpX () {
+    public int getUpX ()
+    {
         return this.up.getX();
     }
     
-    public int getDownX () {
+    public int getDownX ()
+    {
         return this.down.getX();
     }
     
-    public boolean endCollided () {
+    public boolean endCollided ()
+    {
         return (this.up.getY() <= this.end.getY()) ? true : false;
     }
     
-    public void moveUp () {
+    public void moveUp ()
+    {
         if (super.getY() >= this.end.getY()) {
             // Move vertex of Missile
             this.up.setY(this.up.getY() - this.MOVEMENT);
@@ -63,7 +70,8 @@ public class Missile extends Entity {
         }
     }
     
-    public void moveDown () {
+    public void moveDown ()
+    {
         
     }
 }

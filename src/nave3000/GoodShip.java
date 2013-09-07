@@ -1,8 +1,8 @@
 
 package nave3000;
 
-public class GoodShip extends Entity {
-    
+public class GoodShip extends Entity
+{
     /*
      * Constant
      */
@@ -17,7 +17,8 @@ public class GoodShip extends Entity {
     private Point left, right, down;
     private Point begin,end;
     
-    GoodShip (Point origin) {
+    GoodShip (Point origin)
+    {
         // Asignar Origen
         super (origin);
         
@@ -38,19 +39,23 @@ public class GoodShip extends Entity {
         this.end = new Point (715,0);
     }
    
-    public Point getLeft() {
+    public Point getLeft()
+    {
         return this.left;
     }
     
-    public Point getRight() {
+    public Point getRight()
+    {
         return this.right;
     }
     
-    public Point getDown() {
+    public Point getDown()
+    {
         return this.down;
     }
     
-    public void moveRight() {
+    public void moveRight()
+    {
         if (super.getX() <= this.end.x) {
             this.left.x += this.MOVEMENT ;
             this.right.x += this.MOVEMENT;
@@ -59,7 +64,8 @@ public class GoodShip extends Entity {
         }
     }
     
-    public void moveLeft() {
+    public void moveLeft()
+    {
         if (super.getX() >= this.begin.x) {
             this.left.x -= this.MOVEMENT;
             this.right.x -= this.MOVEMENT;

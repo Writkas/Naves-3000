@@ -1,11 +1,12 @@
 
 package nave3000;
 
-public class World extends Entity {
-   
+public class World extends Entity
+{
     private  Point upperLeft, bottomLeft, upperRight,  bottomRight;
   
-    World (Point origin) {
+    World (Point origin)
+    {
         super (origin);
         
         this.upperLeft = new Point();
@@ -29,19 +30,23 @@ public class World extends Entity {
         this.bottomLeft.y = super.getY() + 250; 
     }
    
-    public Point getupperLeft () {
+    public Point getupperLeft ()
+    {
         return this.upperLeft;
     }
     
-    public Point getupperRight () {
+    public Point getupperRight ()
+    {
         return this.upperRight;
     }
     
-    public Point getbottomRight () {
+    public Point getbottomRight ()
+    {
         return this.bottomRight;
     }
     
-    public Point getbottomLeft () {
+    public Point getbottomLeft ()
+    {
         return this.bottomLeft;    
     } 
 }

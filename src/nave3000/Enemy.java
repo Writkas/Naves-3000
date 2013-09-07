@@ -1,8 +1,8 @@
 
 package nave3000;
 
-public class Enemy extends Entity {
-    
+public class Enemy extends Entity 
+{
     /*
      * Constants
      */
@@ -23,7 +23,8 @@ public class Enemy extends Entity {
     
 
     
-    Enemy (Point origin) {
+    Enemy (Point origin)
+    {
         // Assign origen
         super (origin);
         
@@ -45,7 +46,8 @@ public class Enemy extends Entity {
         this.end = new Point ();
     }
  
-    public void move () {
+    public void move ()
+    {
         
         // Right movement
         if (movementState == 1) {
@@ -64,29 +66,35 @@ public class Enemy extends Entity {
         }
     }
     
-    public void setBegin (Point begin) {
+    public void setBegin (Point begin)
+    {
         this.begin.x = begin.x;
         this.begin.y = begin.y;
     }
     
-    public void setEnd (Point end) {
+    public void setEnd (Point end)
+    {
         this.end.x = end.x;
         this.end.y = end.y;
     }
     
-    public Point getLeft(){
+    public Point getLeft()
+    {
         return this.left;
     }
     
-    public Point getRight(){
+    public Point getRight()
+    {
         return this.right;
     }  
     
-    public Point getDown(){
+    public Point getDown()
+    {
         return this.down;
     }
     
-    private void moveLeft () {
+    private void moveLeft ()
+    {
         // Move vertex
         super.setX(super.getX() - MOVEMENT);
         this.left.x -= MOVEMENT;
@@ -94,7 +102,8 @@ public class Enemy extends Entity {
         this.down.x -= MOVEMENT; 
     }
     
-    private void moveRight () {
+    private void moveRight ()
+    {
         // Move vertex
         super.setX(super.getX() + MOVEMENT);
         this.left.x += MOVEMENT;
@@ -102,7 +111,8 @@ public class Enemy extends Entity {
         this.down.x += MOVEMENT; 
     }
 
-    boolean isDamanged (int x, int y) {
+    boolean isDamanged (int x, int y)
+    {
        boolean collisionDetection = (super.getX() - this.SIZE_IN_X <= x 
                && super.getX() + this.SIZE_IN_X >= x
                && super.getY() + this.SIZE  >= y);
