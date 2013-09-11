@@ -3,7 +3,6 @@ package nave3000;
 
 public class Point
 {
-    // Temp: mas adelante cambiar los modificadores a private
     public int x;
     public int y;
     

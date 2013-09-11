@@ -30,16 +30,16 @@ public class Enemy extends Entity
         
         // Assign vertex
         this.left = new Point();
-        this.left.x = super.getX() - this.SIZE;
-        this.left.y = super.getY() - this.SIZE;
+        this.left.setX(super.getX() - this.SIZE);
+        this.left.setY(super.getY() - this.SIZE);
         
         this.right = new Point();
-        this.right.x = super.getX() + this.SIZE;
-        this.right.y = super.getY() - this.SIZE;
+        this.right.setX(super.getX() + this.SIZE);
+        this.right.setY(super.getY() - this.SIZE);
         
         this.down = new Point();
-        this.down.x = super.getX();
-        this.down.y = super.getY() + this.SIZE;
+        this.down.setX(super.getX());
+        this.down.setY(super.getY() + this.SIZE);
         
         // Default without movement
         this.begin = new Point ();
@@ -48,34 +48,33 @@ public class Enemy extends Entity
  
     public void move ()
     {
-        
         // Right movement
-        if (movementState == 1) {
+        if (this.movementState == 1) {
             moveRight ();
             
-            if (super.getX() >= this.end.x)
-                movementState = 2; // Left
+            if (super.getX() >= this.end.getX())
+                this.movementState = 2; // Left
         }
         
         // Left movement
-        if (movementState == 2) {
+        if (this.movementState == 2) {
             moveLeft ();
             
-            if (super.getX() <= this.begin.x)
-                movementState = 1; // Right
+            if (super.getX() <= this.begin.getX())
+                this.movementState = 1; // Right
         }
     }
     
     public void setBegin (Point begin)
     {
-        this.begin.x = begin.x;
-        this.begin.y = begin.y;
+        this.begin.setX(begin.getX());
+        this.begin.setY(begin.getY());
     }
     
     public void setEnd (Point end)
     {
-        this.end.x = end.x;
-        this.end.y = end.y;
+        this.end.setX(end.getX());
+        this.end.setY(end.getY());
     }
     
     public Point getLeft()
@@ -97,18 +96,18 @@ public class Enemy extends Entity
     {
         // Move vertex
         super.setX(super.getX() - MOVEMENT);
-        this.left.x -= MOVEMENT;
-        this.right.x -= MOVEMENT;
-        this.down.x -= MOVEMENT; 
+        this.left.setX(this.left.getX() - this.MOVEMENT);
+        this.right.setX(this.right.getX() - this.MOVEMENT);
+        this.down.setX(this.down.getX() - this.MOVEMENT);
     }
     
     private void moveRight ()
     {
         // Move vertex
         super.setX(super.getX() + MOVEMENT);
-        this.left.x += MOVEMENT;
-        this.right.x += MOVEMENT;
-        this.down.x += MOVEMENT; 
+        this.left.setX(this.left.getX() + this.MOVEMENT);
+        this.right.setX(this.right.getX() + this.MOVEMENT);
+        this.down.setX(this.down.getX() + this.MOVEMENT);
     }
 
     boolean isDamanged (int x, int y)

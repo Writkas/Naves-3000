@@ -24,7 +24,7 @@ public class GoodShip extends Entity
         
         // Asignar vertices
         this.left = new Point();
-        this.left.x = super.getX();
+        this.left.setX(super.getX());
         this.left.y = super.getY() - this.SIZE;
         
         this.right = new Point();

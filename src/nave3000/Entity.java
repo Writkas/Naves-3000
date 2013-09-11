@@ -8,28 +8,28 @@ public abstract class Entity
     Entity (Point origin)
     {
         originPoint = new Point();
-        this.originPoint.x = origin.x;
-        this.originPoint.y = origin.y;
+        this.originPoint.setX(origin.getX());
+        this.originPoint.setY(origin.getY());
     }
     
     protected void setX (int x)
     {
-        this.originPoint.x = x;
+        this.originPoint.setX(x);
     }
     
     protected void setY (int y)
     {
-        this.originPoint.y = y;
+        this.originPoint.setY(y);
     }
     
     protected int getX ()
     {
-        return this.originPoint.x;
+        return this.originPoint.getX();
     }
     
     protected int getY ()
     {
-        return this.originPoint.y;
+        return this.originPoint.getY();
     }
     
     protected Point getOrigin ()
