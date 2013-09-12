@@ -3,31 +3,31 @@ package nave3000;
 
 public class World extends Entity
 {
-    private  Point upperLeft, bottomLeft, upperRight,  bottomRight;
+    private Point upperLeft, bottomLeft, upperRight,  bottomRight;
   
     World (Point origin)
     {
         super (origin);
         
         this.upperLeft = new Point();
-        this.upperLeft.x = super.getX() - 350;
-        this.upperLeft.y = super.getY() - 250; 
+        this.upperLeft.setX(super.getX() - 350);
+        this.upperLeft.setY(super.getY() - 250);
         
         this.upperRight = new Point();
-        this.upperRight.x = super.getX() + 350;
-        this.upperRight.y = super.getY() - 250;
+        this.upperRight.setX(super.getX() + 350);
+        this.upperRight.setY(super.getY() - 250);
         
         this.bottomRight = new Point();
-        this.bottomRight.x = super.getX() + 350;
-        this.bottomRight.y = super.getY() + 250;
+        this.bottomRight.setX(super.getX() + 350);
+        this.bottomRight.setY(super.getY() + 250);
         
         this.bottomLeft = new Point();
-        this.bottomLeft.x = super.getX() - 350;
-        this.bottomLeft.y = super.getY() + 250;
+        this.bottomLeft.setX(super.getX() - 350);
+        this.bottomLeft.setY(super.getY() + 250);
         
         this.bottomLeft = new Point();
-        this.bottomLeft.x = super.getX() - 350;
-        this.bottomLeft.y = super.getY() + 250; 
+        this.bottomLeft.setX(super.getX() - 350);
+        this.bottomLeft.setY(super.getY() + 250);
     }
    
     public Point getupperLeft ()

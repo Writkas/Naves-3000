@@ -3,8 +3,8 @@ package nave3000;
 
 public class Point
 {
-    public int x;
-    public int y;
+    private int x;
+    private int y;
     
     Point (int x, int y)
     {

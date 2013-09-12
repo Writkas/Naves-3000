@@ -112,7 +112,7 @@ public final class Game
         
         // Create the enemies and assign origin of enemies
         for (int i = 0; i < Game.TOTAL_ENEMIES; i++) {
-            this.originAux.x += 75;
+            this.originAux.setX(this.originAux.getX() + 75);
             this.enemies.add(new Enemy (originAux));
         }
         

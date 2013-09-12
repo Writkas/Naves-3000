@@ -14,8 +14,8 @@ public class GoodShip extends Entity
      * Variables
      */
     
-    private Point left, right, down;
-    private Point begin,end;
+    private Point left, right, up;
+    private Point begin, end;
     
     GoodShip (Point origin)
     {
@@ -25,15 +25,15 @@ public class GoodShip extends Entity
         // Asignar vertices
         this.left = new Point();
         this.left.setX(super.getX());
-        this.left.y = super.getY() - this.SIZE;
+        this.left.setY(super.getY() - this.SIZE);
         
         this.right = new Point();
-        this.right.x = super.getX() + this.SIZE;
-        this.right.y = super.getY() + this.SIZE;
+        this.right.setX(super.getX() + this.SIZE);
+        this.right.setY(super.getY() + this.SIZE);
         
-        this.down = new Point();
-        this.down.x = super.getX() - this.SIZE;
-        this.down.y = super.getY() + this.SIZE;
+        this.up = new Point();
+        this.up.setX(super.getX() - this.SIZE);
+        this.up.setY(super.getY() + this.SIZE);
         
         this.begin = new Point (85,0);
         this.end = new Point (715,0);
@@ -51,25 +51,25 @@ public class GoodShip extends Entity
     
     public Point getDown()
     {
-        return this.down;
+        return this.up;
     }
     
     public void moveRight()
     {
-        if (super.getX() <= this.end.x) {
-            this.left.x += this.MOVEMENT ;
-            this.right.x += this.MOVEMENT;
-            this.down.x += this.MOVEMENT;
+        if (super.getX() <= this.end.getX()) {
+            this.left.setX(this.left.getX() + this.MOVEMENT);
+            this.right.setX(this.right.getX() + this.MOVEMENT);
+            this.up.setX(this.up.getX() + this.MOVEMENT);
             super.setX(super.getX() + this.MOVEMENT);
         }
     }
     
     public void moveLeft()
     {
-        if (super.getX() >= this.begin.x) {
-            this.left.x -= this.MOVEMENT;
-            this.right.x -= this.MOVEMENT;
-            this.down.x -= this.MOVEMENT;
+        if (super.getX() >= this.begin.getX()) {
+            this.left.setX(this.left.getX() - this.MOVEMENT);
+            this.right.setX(this.right.getX() - this.MOVEMENT);
+            this.up.setX(this.up.getX() - this.MOVEMENT);
             super.setX(super.getX() - this.MOVEMENT);
         }
     }
