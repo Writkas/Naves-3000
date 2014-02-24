@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 // LWJGL Imports
 import org.lwjgl.*;
-import org.lwjgl.Sys;
 import org.lwjgl.opengl.*;
 import org.lwjgl.input.Keyboard;
 import static org.lwjgl.opengl.GL11.*;
@@ -26,10 +25,10 @@ public final class Game
     
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
-    private static String WINDOW_TITLE = "Nave3000";
+    private static final String WINDOW_TITLE = "Nave 3000";
     private static final int TOTAL_ENEMIES = 6;
     private static final int TOTAL_SHOTS = 1;
-     
+    
     /*
      *  Variables
      */
